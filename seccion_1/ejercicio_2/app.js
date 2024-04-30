@@ -9,11 +9,35 @@ while(preguntaUser){
         var predFuncDeclarada = prompt("Predice el resultado de 'funcionDeclarada()':");
         var predFuncExpresada = prompt("Predice el resultado de 'funcionExpresada()':");
 
-        console.log("Valor de a:", a);
-        console.log("Valor de b:", b);
-        console.log("Valor de c:", c);
-        console.log("Resultado de funcionDeclarada:", funcionDeclarada());
-        console.log("Resultado de funcionExpresada:", funcionExpresada());
+        try {
+            console.log("Valor de a:", a);
+        } catch (error) {
+            console.log("Error:", error.message);
+        }
+
+        try {
+            console.log("Valor de b:", b);
+        } catch (error) {
+            console.log("Error:", error.message);
+        }
+
+        try {
+            console.log("Valor de c:", c);
+        } catch (error) {
+            console.log("Error:", error.message);
+        }
+
+        try {
+            console.log("Resultado de funcionDeclarada:", funcionDeclarada());
+        } catch (error) {
+            console.log("Error:", error.message);
+        }
+
+        try {
+            console.log("Resultado de funcionExpresada:", funcionExpresada());
+        } catch (error) {
+            console.log("Error:", error.message);
+        }
 
         // Variables y Funciones
         var a = 1;
