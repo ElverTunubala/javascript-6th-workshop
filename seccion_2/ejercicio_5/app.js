@@ -1,10 +1,11 @@
-// 5.1: Definir la función manejarAsincronia
+// 5.1: función manejarAsincronia
 function manejarAsincronia(callback, promesa) {
-    // 5.2: Crear la promesa que se resuelve después de 2 segundos
+
+    // 5.2: esta la promesa que se resuelve después de 2 segundos
     const miPromesa = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve();
-      }, 2000); // Cambiar a 5000 para probar con 5 segundos o a 1000 para probar con 1 segundo
+      }, 2000); // Cambiar a 5000 = 5 segundos o a 1000 = 1 segundo
     });
   
     // 5.3: Ejecutar el callback después de que la promesa se resuelva
@@ -14,15 +15,21 @@ function manejarAsincronia(callback, promesa) {
       callback("¡Promesa rechazada! Error: " + error);
     });
   }
-  
+  const miPromesa = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve();
+    }, 9000); // Cambiar a 5000 = 5 segundos o a 1000 = 1 segundo
+  });
+
   // 5.4: Invocar la función
   manejarAsincronia((mensaje) => {
     console.log(mensaje);
-  }, miPromesa); // Puedes pasar una promesa existente o crear una nueva aquí
+  }, miPromesa); // se puede pasar una promesa existente o crear una nueva aquí
   
   // 5.5: 
   // - ¿Qué sucede si cambias el tiempo de resolución de la promesa a 5 segundos o a 1 segundo?
-  // La promesa se resolverá después del tiempo especificado (en milisegundos). Si es 5 segundos, tomará más tiempo en ejecutarse, mientras que si es 1 segundo, será más rápido.
+  // La promesa se resolverá después del tiempo especificado (en milisegundos). Si es 5 segundos, tomará más tiempo en ejecutarse, mientras que si es 1 segundo,
+  // será más rápido.
   
   // - ¿Cómo se comporta la función si la promesa es rechazada en lugar de resuelta?
   // Si la promesa es rechazada, se ejecutará el método catch y el callback recibirá un mensaje indicando que la promesa fue rechazada, junto con el error.
