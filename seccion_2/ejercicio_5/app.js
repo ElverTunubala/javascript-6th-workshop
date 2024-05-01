@@ -1,7 +1,7 @@
 // 5.1: función manejarAsincronia
 function manejarAsincronia(callback, promesa) {
 
-    // 5.2: esta la promesa que se resuelve después de 2 segundos
+    
     const miPromesa = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve();
@@ -15,6 +15,8 @@ function manejarAsincronia(callback, promesa) {
       callback("¡Promesa rechazada! Error: " + error);
     });
   }
+  
+  // 5.2: esta la promesa que se resuelve después de 2 segundos
   const miPromesa = new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve();

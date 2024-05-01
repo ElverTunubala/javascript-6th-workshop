@@ -1,5 +1,6 @@
 // Función para mostrar un mensaje después de un intervalo de tiempo dado
 function mostrarMensajeDespuesDeTiempo(tiempo) {
+
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve("¡Mensaje mostrado después de " + tiempo + " segundos!");
@@ -26,6 +27,7 @@ function mostrarMensajeDespuesDeTiempo(tiempo) {
     .then(data => {
       console.log("Datos cargados correctamente:");
       console.log(data);
+      let resultado = data.map(r=> console.log(r.title))
     })
     .catch(error => {
       console.error("Error:", error.message);

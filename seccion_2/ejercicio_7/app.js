@@ -1,30 +1,42 @@
-console.log("Inicio del script");
+// console.log("inicio");
 
-setTimeout(() => {
-  console.log("Primer setTimeout");
-}, 0);
+// setTimeout(() => {
+//   console.log("primer");
+// }, 0);
 
-setTimeout(() => {
-  console.log("Segundo setTimeout");
-}, 0);
+// setTimeout(() => {
+//   console.log("segundo");
+// }, 0);
 
-Promise.resolve("Promesa resuelta").then(console.log);
+// Promise.resolve("promesa ").then(console.log);
 
-console.log("Fin del script");
+// console.log("fin");
 
 // Pide al usuario que prediga el orden de los mensajes en consola
 var predicciones = [
-  "Inicio del script",
-  "Fin del script",
-  "Promesa resuelta",
-  "Primer setTimeout",
-  "Segundo setTimeout"
+  "inicio",
+  "fin",
+  "promesa",
+  "primer",
+  "segundo"
 ];
 
 var respuestaUsuario = prompt("Predice el orden en que se mostrarán los mensajes en consola, separados por comas:");
 
 // Divide la respuesta del usuario en un array
 var respuestaUsuarioArray = respuestaUsuario.split(",").map(item => item.trim());
+
+// Muestra el resultado que ingreso el usuario.
+console.log("Tus respuestas:");
+console.log(respuestaUsuarioArray.join("\n"));
+
+for (var i = 0; i < predicciones.length; i++) {
+  if (predicciones[i] == respuestaUsuarioArray[i]) {
+    continue;
+  }else{
+    console.log("Lo siento, en la posicion"+" "+(i+1)+" "+"debe imprimir la palabra " + predicciones[i]);
+  }
+}
 
 // Compara la respuesta del usuario con el orden real
 var errores = 0;
@@ -49,5 +61,5 @@ if (errores === 0) {
 }
 
 // Este script mostrará al usuario el código dado y le pedirá que prediga el orden en que
-//  se mostrarán los mensajes en la consola. Luego, comparará la respuesta del usuario con
-//   el orden real y proporcionará retroalimentación en función de la precisión de la predicción.
+// se mostrarán los mensajes en la consola. Luego, comparará la respuesta del usuario con
+// el orden real y proporcionará retroalimentación en función de la precisión de la predicción.
