@@ -1,5 +1,56 @@
 // Ruta del archivo data.json
-const url = url("data.json"); // Cambiar por la ruta correcta
+const url = "./data.jsonn" //  ruta del archivo json
+console.log(url);
+let inicioReserva=true
+// let datosCargados = cargarYMostrarData()
+
+// while(inicioReserva){
+//   respuestaUsuario = prompt("1.Realizar una reserva\n2.Verificar habitaciones disponibles\n3.3.Ver mis reservas\n4.Canclelar reserva").toLocaleLowerCase();
+
+//   if (respuestaUsuario == "1") {
+
+//     cargarYMostrarData()
+//       .then(() => {
+        
+//         const nombreCompleto = prompt("Ingrese su nombre completo:");
+//         const numeroHabitacion = parseInt(prompt("Ingrese el número de la habitación que desea reservar:"));
+//         const fechaInicio = prompt("Ingrese la fecha de inicio de la reserva (YYYY-MM-DD):");
+//         const fechaFin = prompt("Ingrese la fecha de fin de la reserva (YYYY-MM-DD):");
+//         const cantidadHuespedes = parseInt(prompt("Ingrese la cantidad de huéspedes:"));
+//         crearReserva(numeroHabitacion, fechaInicio, fechaFin, nombreCompleto, cantidadHuespedes);
+        
+//       })
+//       .catch((error) => {
+//         console.error("Error al manejar la promesa:", error);
+//       });
+//   }else {
+//     inicioReserva=false;
+
+//   }
+
+// }
+
+
+cargarYMostrarData().then(() => {
+
+  while (inicioReserva) {
+    respuestaUsuario = prompt("1.Realizar una reserva\n2.Verificar habitaciones disponibles\n3.3.Ver mis reservas\n4.Canclelar reserva").toLocaleLowerCase();
+
+    if (respuestaUsuario == "1") {
+      const nombreCompleto = prompt("Ingrese su nombre completo:");
+      const numeroHabitacion = parseInt(prompt("Ingrese el número de la habitación que desea reservar:"));
+      const fechaInicio = prompt("Ingrese la fecha de inicio de la reserva (YYYY-MM-DD):");
+      const fechaFin = prompt("Ingrese la fecha de fin de la reserva (YYYY-MM-DD):");
+      const cantidadHuespedes = parseInt(prompt("Ingrese la cantidad de huéspedes:"));
+      crearReserva(numeroHabitacion, fechaInicio, fechaFin, nombreCompleto, cantidadHuespedes);
+    }else{
+      inicioReserva=false;
+    }
+  }
+
+}).catch((error) =>{
+  console.error("Error al entrar al ciclo:", error);
+})
 
 // Variables para almacenar los datos
 let habitaciones = [];
@@ -111,21 +162,21 @@ function editarReserva(idReserva, nuevaFechaInicio, nuevaFechaFin) {
 }
 
 // Llamar a la función para cargar y mostrar el contenido de data.json
-cargarYMostrarData()
-  .then(() => {
-    // Ejemplo de uso de las funciones
-    const nombreCompleto = prompt("Ingrese su nombre completo:");
-    const numeroHabitacion = parseInt(prompt("Ingrese el número de la habitación que desea reservar:"));
-    const fechaInicio = prompt("Ingrese la fecha de inicio de la reserva (YYYY-MM-DD):");
-    const fechaFin = prompt("Ingrese la fecha de fin de la reserva (YYYY-MM-DD):");
-    const cantidadHuespedes = parseInt(prompt("Ingrese la cantidad de huéspedes:"));
-    const idReserva = crearReserva(numeroHabitacion, fechaInicio, fechaFin, nombreCompleto, cantidadHuespedes);
-    verReservas(nombreCompleto);
-    cancelarReserva(idReserva);
-    verReservas(nombreCompleto);
-    editarReserva(idReserva, "2024-05-01", "2024-05-05");
-    verReservas(nombreCompleto);
-  })
-  .catch((error) => {
-    console.error("Error al manejar la promesa:", error);
-  });
+// cargarYMostrarData()
+//   .then(() => {
+//     // Ejemplo de uso de las funciones
+//     const nombreCompleto = prompt("Ingrese su nombre completo:");
+//     const numeroHabitacion = parseInt(prompt("Ingrese el número de la habitación que desea reservar:"));
+//     const fechaInicio = prompt("Ingrese la fecha de inicio de la reserva (YYYY-MM-DD):");
+//     const fechaFin = prompt("Ingrese la fecha de fin de la reserva (YYYY-MM-DD):");
+//     const cantidadHuespedes = parseInt(prompt("Ingrese la cantidad de huéspedes:"));
+//     const idReserva = crearReserva(numeroHabitacion, fechaInicio, fechaFin, nombreCompleto, cantidadHuespedes);
+//     verReservas(nombreCompleto);
+//     cancelarReserva(idReserva);
+//     verReservas(nombreCompleto);
+//     editarReserva(idReserva, "2024-05-01", "2024-05-05");
+//     verReservas(nombreCompleto);
+//   })
+//   .catch((error) => {
+//     console.error("Error al manejar la promesa:", error);
+//   });
