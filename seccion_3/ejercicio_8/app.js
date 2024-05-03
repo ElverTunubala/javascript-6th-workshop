@@ -19,7 +19,6 @@ function crearContador() {
   
   // Interfaz para que el usuario interactúe con el contador
   let continuar = true;
-
   while (continuar) {
     const opcion = prompt("¿Desea incrementar el contador? (Sí/No)");
   
@@ -35,7 +34,7 @@ function crearContador() {
 
   console.log("Fin del programa.");
 
-  
+
 // la función crearContador() devuelve un objeto con dos métodos: incrementar() y obtenerValorActual(). Estos métodos tienen acceso al contador dentro del closure,
 // lo que significa que pueden modificar y acceder a su valor interno incluso después de que la función crearContador() haya terminado de ejecutarse.
 

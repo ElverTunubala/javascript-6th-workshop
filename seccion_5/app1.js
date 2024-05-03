@@ -1,40 +1,13 @@
 // Ruta del archivo data.json
-const url = "./data.jsonn" //  ruta del archivo json
+const url = "./data.json" //  ruta del archivo json
 console.log(url);
 let inicioReserva=true
 // let datosCargados = cargarYMostrarData()
 
-// while(inicioReserva){
-//   respuestaUsuario = prompt("1.Realizar una reserva\n2.Verificar habitaciones disponibles\n3.3.Ver mis reservas\n4.Canclelar reserva").toLocaleLowerCase();
-
-//   if (respuestaUsuario == "1") {
-
-//     cargarYMostrarData()
-//       .then(() => {
-        
-//         const nombreCompleto = prompt("Ingrese su nombre completo:");
-//         const numeroHabitacion = parseInt(prompt("Ingrese el número de la habitación que desea reservar:"));
-//         const fechaInicio = prompt("Ingrese la fecha de inicio de la reserva (YYYY-MM-DD):");
-//         const fechaFin = prompt("Ingrese la fecha de fin de la reserva (YYYY-MM-DD):");
-//         const cantidadHuespedes = parseInt(prompt("Ingrese la cantidad de huéspedes:"));
-//         crearReserva(numeroHabitacion, fechaInicio, fechaFin, nombreCompleto, cantidadHuespedes);
-        
-//       })
-//       .catch((error) => {
-//         console.error("Error al manejar la promesa:", error);
-//       });
-//   }else {
-//     inicioReserva=false;
-
-//   }
-
-// }
-
-
 cargarYMostrarData().then(() => {
 
   while (inicioReserva) {
-    respuestaUsuario = prompt("1.Realizar una reserva\n2.Verificar habitaciones disponibles\n3.3.Ver mis reservas\n4.Canclelar reserva").toLocaleLowerCase();
+    respuestaUsuario = prompt("1.Realizar una reserva\n2.Verificar habitaciones disponibles\n3.Ver mis reservas\n4.Canclelar reserva").toLocaleLowerCase();
 
     if (respuestaUsuario == "1") {
       const nombreCompleto = prompt("Ingrese su nombre completo:");
@@ -43,7 +16,15 @@ cargarYMostrarData().then(() => {
       const fechaFin = prompt("Ingrese la fecha de fin de la reserva (YYYY-MM-DD):");
       const cantidadHuespedes = parseInt(prompt("Ingrese la cantidad de huéspedes:"));
       crearReserva(numeroHabitacion, fechaInicio, fechaFin, nombreCompleto, cantidadHuespedes);
-    }else{
+
+    }else if(respuestaUsuario == "2"){
+      verHabitacionesDisponibles()
+
+    }else if(respuestaUsuario == "3"){
+      let nombre= prompt("Ingrese el nombre completo")
+      verReservas(nombre)
+    }
+    else{
       inicioReserva=false;
     }
   }
@@ -56,6 +37,7 @@ cargarYMostrarData().then(() => {
 let habitaciones = [];
 let tiposHabitacion = [];
 let reservas = [];
+
 
 // Función para cargar y mostrar el contenido de data.json
 function cargarYMostrarData() {
@@ -73,8 +55,10 @@ function cargarYMostrarData() {
         .then((data) => {
           console.log("Habitaciones:", data.rooms);
           console.log("Tipos de Habitaciones:", data.roomTypes);
+          
           // Almacenar los datos cargados en las variables correspondientes
           habitaciones = data.rooms;
+          habitacionesDisponibles=data.rooms;
           tiposHabitacion = data.roomTypes;
           resolve(); // Resuelve la promesa después de cargar los datos
         })
@@ -95,6 +79,7 @@ function crearReserva(numeroHabitacion, fechaInicio, fechaFin, nombreCompleto, c
   }
   // Verificar capacidad de la habitación
   const tipoHabitacion = tiposHabitacion.find((type) => type.id === habitacion.roomTypeId);
+  console.log("este es el tipo de habitacion: "+tipoHabitacion)
   if (!tipoHabitacion || cantidadHuespedes > tipoHabitacion.capacity) {
     throw new Error("La habitación no tiene suficiente capacidad para la cantidad de huéspedes.");
   }
@@ -121,7 +106,14 @@ function crearReserva(numeroHabitacion, fechaInicio, fechaFin, nombreCompleto, c
 function generarIdUnico() {
   return Math.random().toString(36).substr(2, 9);
 }
-
+// Función para ver las habitaciones disponibles
+function verHabitacionesDisponibles(){
+  const habitacionesDisponibles = habitaciones.filter((room) => room.availability);
+  console.log("Habitaciones disponibles:");
+  habitacionesDisponibles.forEach((room) => {
+    console.log("Número:", room.number);
+  });
+}
 // Función para ver las reservas actuales del usuario
 function verReservas(nombreCompleto) {
   const reservasUsuario = reservas.filter((reserva) => reserva.nombreCompleto === nombreCompleto.toLowerCase());
@@ -164,14 +156,8 @@ function editarReserva(idReserva, nuevaFechaInicio, nuevaFechaFin) {
 // Llamar a la función para cargar y mostrar el contenido de data.json
 // cargarYMostrarData()
 //   .then(() => {
-//     // Ejemplo de uso de las funciones
-//     const nombreCompleto = prompt("Ingrese su nombre completo:");
-//     const numeroHabitacion = parseInt(prompt("Ingrese el número de la habitación que desea reservar:"));
-//     const fechaInicio = prompt("Ingrese la fecha de inicio de la reserva (YYYY-MM-DD):");
-//     const fechaFin = prompt("Ingrese la fecha de fin de la reserva (YYYY-MM-DD):");
-//     const cantidadHuespedes = parseInt(prompt("Ingrese la cantidad de huéspedes:"));
-//     const idReserva = crearReserva(numeroHabitacion, fechaInicio, fechaFin, nombreCompleto, cantidadHuespedes);
-//     verReservas(nombreCompleto);
+//     
+
 //     cancelarReserva(idReserva);
 //     verReservas(nombreCompleto);
 //     editarReserva(idReserva, "2024-05-01", "2024-05-05");
