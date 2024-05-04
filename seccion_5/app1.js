@@ -1,13 +1,12 @@
-// Ruta del archivo data.json
+
 const url = "./data.json" //  ruta del archivo json
 console.log(url);
 let inicioReserva=true
-// let datosCargados = cargarYMostrarData()
 
 cargarYMostrarData().then(() => {
 
   while (inicioReserva) {
-    respuestaUsuario = prompt("1.Realizar una reserva\n2.Verificar habitaciones disponibles\n3.Ver mis reservas\n4.Canclelar reserva").toLocaleLowerCase();
+    respuestaUsuario = prompt("1.Realizar una reserva\n2.Verificar habitaciones disponibles\n3.Ver mis reservas\n4.Cancelar reserva\n5.Editar mi reserva").toLocaleLowerCase();
 
     if (respuestaUsuario == "1") {
       const nombreCompleto = prompt("Ingrese su nombre completo:");
@@ -23,8 +22,20 @@ cargarYMostrarData().then(() => {
     }else if(respuestaUsuario == "3"){
       let nombre= prompt("Ingrese el nombre completo")
       verReservas(nombre)
-    }
-    else{
+
+    }else if(respuestaUsuario == "4"){
+      let idReserva = prompt("Ingrese el Id de la reserva a cancelar")
+      cancelarReserva(idReserva);
+
+    }else if(respuestaUsuario == "5"){
+
+      let idReserva = prompt("Ingrese el Id de la reserva que desea editar")
+      let nuevaFechaInicio = prompt("Ingrese la nueva fecha de inicio")
+      let nuevaFechaFin = prompt("Ingrese la nueva fecha de finalizacion")
+
+      editarReserva(idReserva, nuevaFechaInicio, nuevaFechaFin);
+
+    }else{
       inicioReserva=false;
     }
   }
@@ -47,6 +58,7 @@ function cargarYMostrarData() {
       // Realiza la solicitud fetch dentro del setTimeout
       fetch(url)
         .then((response) => {
+          console.log(response)
           if (!response.ok) {
             throw new Error("Error al cargar los datos.");
           }
@@ -55,10 +67,11 @@ function cargarYMostrarData() {
         .then((data) => {
           console.log("Habitaciones:", data.rooms);
           console.log("Tipos de Habitaciones:", data.roomTypes);
+          // let disponibles = data.rooms;
+          // console.log(disponibles);
           
           // Almacenar los datos cargados en las variables correspondientes
           habitaciones = data.rooms;
-          habitacionesDisponibles=data.rooms;
           tiposHabitacion = data.roomTypes;
           resolve(); // Resuelve la promesa después de cargar los datos
         })
@@ -117,14 +130,19 @@ function verHabitacionesDisponibles(){
 // Función para ver las reservas actuales del usuario
 function verReservas(nombreCompleto) {
   const reservasUsuario = reservas.filter((reserva) => reserva.nombreCompleto === nombreCompleto.toLowerCase());
+  if (reservasUsuario.length === 0) {
+    console.log("No hay reservas para", nombreCompleto + ".");
+    return;
+  }
   console.log("Reservas de", nombreCompleto + ":");
   reservasUsuario.forEach((reserva) => {
+    console.log("-----------------------------------------------------");
     console.log("ID:", reserva.id);
     console.log("Habitación:", reserva.numeroHabitacion);
     console.log("Fecha de inicio:", reserva.fechaInicio);
     console.log("Fecha de fin:", reserva.fechaFin);
     console.log("Cantidad de huéspedes:", reserva.cantidadHuespedes);
-    console.log("--------------------");
+    console.log("-----------------------------------------------------");
   });
 }
 
@@ -153,16 +171,3 @@ function editarReserva(idReserva, nuevaFechaInicio, nuevaFechaFin) {
   }
 }
 
-// Llamar a la función para cargar y mostrar el contenido de data.json
-// cargarYMostrarData()
-//   .then(() => {
-//     
-
-//     cancelarReserva(idReserva);
-//     verReservas(nombreCompleto);
-//     editarReserva(idReserva, "2024-05-01", "2024-05-05");
-//     verReservas(nombreCompleto);
-//   })
-//   .catch((error) => {
-//     console.error("Error al manejar la promesa:", error);
-//   });
